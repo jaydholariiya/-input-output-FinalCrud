@@ -1,0 +1,114 @@
+@if (!inUpdate || inUpdateFromExternalAction) {
+<form [formGroup]="formSchema" (ngSubmit)="dataAdd()">
+  <h1 style="text-align: center">Insert The Data</h1>
+  <input type="text" placeholder="Enter The Id" formControlName="Id" />
+  <p
+    style="color: red; font-size: small"
+    *ngIf="
+      formSchema.controls['Id']?.invalid && formSchema.controls['Id']?.touched
+    "
+  >
+    ID Is Required!
+  </p>
+  <br />
+  <input type="text" placeholder="Enter The Name" formControlName="name" />
+  <p
+    style="color: red; font-size: small"
+    *ngIf="
+      formSchema.controls['name']?.invalid &&
+      formSchema.controls['name']?.touched
+    "
+  >
+    Name Is Required!
+  </p>
+  <br />
+
+  <input type="text" placeholder="Enter The Gender" formControlName="Gender" />
+  <p
+    style="color: red; font-size: small"
+    *ngIf="
+      formSchema.controls['Gender']?.invalid &&
+      formSchema.controls['Gender']?.touched
+    "
+  >
+    Gender Is Required!
+  </p>
+  <br />
+
+  <input type="text" placeholder="Enter The Age" formControlName="Age" />
+  <p
+    style="color: red; font-size: small"
+    *ngIf="
+      formSchema.controls['Age']?.invalid && formSchema.controls['Age']?.touched
+    "
+  >
+    Age Is Required!
+  </p>
+  <br />
+
+  <input
+    type="text"
+    placeholder="Enter The Mobile_Number"
+    formControlName="Mobile"
+  />
+  <p
+    style="color: red; font-size: small"
+    *ngIf="
+      formSchema.controls['Mobile']?.invalid &&
+      formSchema.controls['Mobile']?.touched
+    "
+  >
+    Mobile_Number Is Required!
+  </p>
+  <br />
+  <button type="submit" [disabled]="formSchema.invalid">Submit</button>
+</form>
+}@else {
+<form [formGroup]="formSchema_update" (ngSubmit)="updateDataFromChild()">
+  <input
+    type="text"
+    placeholder="Enter The Name"
+    formControlName="name"
+  /><br />
+  <input
+    type="text"
+    placeholder="Enter The Gender"
+    formControlName="Gender"
+  /><br />
+  <input type="text" placeholder="Enter The Age" formControlName="Age" /><br />
+  <input
+    type="text"
+    placeholder="Enter The Mobile_Number"
+    formControlName="Mobile"
+  /><br />
+  <button type="submit" [disabled]="formSchema_update.invalid">Update</button>
+</form>
+<button (click)="buttonAdd()">Add Data</button>
+
+}
+<div class="body">
+  <table border="2" class="simple-table">
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>GENDER</th>
+      <th>AGE</th>
+      <th>MOBILE_NUMBER</th>
+      <th>UPDATE RECORD</th>
+      <th>DELETE RECORD</th>
+    </tr>
+    <tr *ngFor="let data of itemList">
+      <td>{{ data.Id }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.Gender }}</td>
+      <td>{{ data.Age }}</td>
+      <td>{{ data.Mobile }}</td>
+      <td>
+        <button (click)="updateItem(data)">Update Record</button>
+      </td>
+      <td>
+        <button (click)="deleteItem(data.Id)">Delete Record</button>
+      </td>
+    </tr>
+  </table>
+</div>
